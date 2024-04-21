@@ -22,7 +22,7 @@ class _OnboardingScreenOneState extends State<OnboardingScreenOne> {
           ),
           child: Column(
             children: [
-              Text('Easily order your product',style: TextStyle(color: Colors.black, fontSize: 24),),
+              Text('Easily order your products',style: TextStyle(color: Colors.black, fontSize: 24),),
             ],
           ),
         ),
