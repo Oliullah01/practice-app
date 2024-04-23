@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Don't have an account".tr,
+                              text: "Don't have an account?".tr,
                               style: TextStyleCustomize.bodyLargeff4c4c4c,
                             ),
                             TextSpan(
