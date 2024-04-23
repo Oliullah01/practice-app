@@ -1,5 +1,4 @@
-import 'package:custom_halal_app/screens/splash_screens/onboarding_screen_one.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:custom_halal_app/screens/onboarding_screens/onboarding_screen_one.dart';
 import 'package:flutter/material.dart';
 
 
