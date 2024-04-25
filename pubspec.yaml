@@ -18,6 +18,8 @@ dependencies:
   shared_preferences: ^2.2.2
   getwidget: ^4.0.0
   pin_code_fields: ^8.0.1
+  fl_chart: ^0.65.0
+  
 
 dev_dependencies:
   flutter_test:

@@ -65,6 +65,11 @@ class TextStyleCustomize {
     fontWeight: FontWeight.w600,
     fontSize: 24.fSize,
   );
+  static get sliderLargeBlackA500 => theme.textTheme.titleMedium!.copyWith(
+    color: Color(0XFF242424),
+    fontWeight: FontWeight.w500,
+    fontSize: 18.fSize,
+  );
 }
 
-extension on TextStyle {}
+extension on TextStyle {}               //#FFFFFF
