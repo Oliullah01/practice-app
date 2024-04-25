@@ -3,6 +3,8 @@ import 'package:custom_halal_app/core/utils/validation_function.dart';
 import 'package:custom_halal_app/theme/text_style_customize.dart';
 import 'package:custom_halal_app/widgets/auth/auth_custom_icon_btn_widget.dart';
 import 'package:custom_halal_app/widgets/auth/auth_custom_image_view_widget.dart';
+import 'package:custom_halal_app/widgets/inputField/custom_button_widget.dart';
+import 'package:custom_halal_app/widgets/inputField/custom_checkbox_button.dart';
 import 'package:custom_halal_app/widgets/inputField/custom_text_form_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,8 +17,15 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  Color _bgColor = const Color(0XFFE1EFE6);
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Color _bgColor = const Color(0XFFE1EFE6);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _nameTEController = TextEditingController();
+  final TextEditingController _phoneTEController = TextEditingController();
+  final TextEditingController _nidTEController = TextEditingController();
+  final TextEditingController _passwordTEController = TextEditingController();
+  final TextEditingController _confirmPasswordTEController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +63,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   width: 36.adaptSize,
                                   padding: EdgeInsets.all(9.h),
                                   onTap: () {},
-                                  child: Image.asset(
-                                      'assets/images/img_arrow_left.png'),
+                                  child: Image.asset('assets/images/img_arrow_left.png'),
                                 ),
                               ),
                               Container(
@@ -74,10 +82,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     Align(
                                       alignment: Alignment.bottomCenter,
                                       child: Text(
-                                        'Welcome Back'.tr,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20),
+                                        'Create Account'.tr,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -93,7 +102,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Phone No:'.tr,
+                          'Name'.tr,
+                          style: TextStyleCustomize.titleSmallGray90006Medium,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 7.v,
+                      ),
+                      _buildName(),
+                      SizedBox(
+                        height: 16.v,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Phone Number'.tr,
                           style: TextStyleCustomize.titleSmallGray90006Medium,
                         ),
                       ),
@@ -105,6 +128,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
+                          'NID Card Number'.tr,
+                          style: TextStyleCustomize.titleSmallGray90006Medium,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 7.v,
+                      ),
+                      _buildNID(),
+                      SizedBox(height: 16.v),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
                           'Password'.tr,
                           style: TextStyleCustomize.titleSmallGray90006Medium,
                         ),
@@ -112,6 +147,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(
                         height: 7.v,
                       ),
+                      _buildPassword(),
+                      SizedBox(height: 16.v),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Confirm Password'.tr,
+                          style: TextStyleCustomize.titleSmallGray90006Medium,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 7.v,
+                      ),
+                      _buildConfirmPassword(),
+                      SizedBox(
+                        height: 16.v,
+                      ),
+                      _buildRememberme(),
+                      SizedBox(height: 22.v),
+                      _buildRegister(),
                     ],
                   )),
             ),
@@ -121,10 +175,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
+  Widget _buildName() {
+    return CustomTextFormFieldWidget(
+      controller: _nameTEController,
+      hintText: 'Name'.tr,
+      textInputType: TextInputType.text,
+      contentPadding:
+          EdgeInsets.only(top: 18.v, right: 30.h, bottom: 18.v, left: 17.h),
+    );
+  }
+
   Widget _buildPhone() {
     return CustomTextFormFieldWidget(
-      //controller: _phoneTEController,
-      hintText: 'Phone No:'.tr,
+      controller: _phoneTEController,
+      hintText: 'Phone Number:'.tr,
       textInputType: TextInputType.phone,
       prefix: Container(
         margin: EdgeInsets.fromLTRB(17.h, 19.v, 9.h, 19.v),
@@ -144,36 +208,136 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  // Widget _buildContinueWithGoogle() {
-  //   return CustomOutlinedButtonWidget(
-  //     text: "Continue With Google".tr,
-  //     leftIcon: Container(
-  //       margin: EdgeInsets.only(right: 12.h),
-  //       child: AuthCustomImageViewWidget(
-  //         imagePath: 'assets/images/google.png',
-  //         height: 24.adaptSize,
-  //         width: 24.adaptSize,
-  //       ),
-  //     ),
-  //     onPressed: () {
-  //       onTapContinueWithGoogle();
-  //     },
-  //   );
-  // }
-  //
-  // onTapBtnArrowLeft() {
-  //   Get.back();
-  // }
-  //
-  // onTapContinueWithGoogle() async {
-  //   // await GoogleAuthHelper().googleSignInProcess().then((googleUser) {
-  //   //   if (googleUser != null) {
-  //   //     //TODO Actions to be performed after signin
-  //   //   } else {
-  //   //     Get.snackbar('Error', 'user data is empty');
-  //   //   }
-  //   // }).catchError((onError) {
-  //   //   Get.snackbar('Error', onError.toString());
-  //   // });
-  // }
+  Widget _buildNID() {
+    return CustomTextFormFieldWidget(
+      controller: _nidTEController,
+      hintText: 'NID card No:',
+      textInputType: TextInputType.number,
+      prefix: Container(
+        margin: EdgeInsets.fromLTRB(17.h, 19.v, 9.h, 19.v),
+        child: AuthCustomImageViewWidget(
+          imagePath: 'assets/images/nid.png',
+          height: 13.v,
+        ),
+      ),
+      prefixConstraints: BoxConstraints(maxHeight: 52.v),
+      contentPadding: EdgeInsets.only(top: 18.v, right: 30.h, bottom: 18.v),
+    );
+  }
+
+  Widget _buildPassword() {
+    return CustomTextFormFieldWidget(
+      controller: _passwordTEController,
+      hintText: 'Password'.tr,
+      textInputAction: TextInputAction.done,
+      textInputType: TextInputType.visiblePassword,
+      prefix: Container(
+        margin: EdgeInsets.fromLTRB(16.h, 16.v, 8.h, 16.v),
+        child: AuthCustomImageViewWidget(
+          imagePath: 'assets/images/password_lock.png',
+          height: 20.adaptSize,
+          width: 20.adaptSize,
+        ),
+      ),
+      prefixConstraints: BoxConstraints(maxHeight: 52.v),
+      suffix: InkWell(
+        onTap: () {},
+        child: Container(
+          margin: EdgeInsets.fromLTRB(30.h, 14.v, 16.h, 14.v),
+          child: AuthCustomImageViewWidget(
+            imagePath: 'assets/images/password_show.png',
+            height: 18.adaptSize,
+            width: 18.adaptSize,
+          ),
+        ),
+      ),
+      suffixConstraints: BoxConstraints(
+        maxHeight: 52.v,
+      ),
+      validator: (value) {
+        if (value == null || (!isValidPassword(value, isRequired: true))) {
+          return "err_msg_please_enter_valid_password".tr;
+        }
+        return null;
+      },
+      //obscureText: _passwordTEController.text.toString(),
+      contentPadding: EdgeInsets.symmetric(vertical: 18.v),
+    );
+  }
+
+  Widget _buildConfirmPassword() {
+    return CustomTextFormFieldWidget(
+      controller: _passwordTEController,
+      hintText: 'Confirm Password'.tr,
+      textInputAction: TextInputAction.done,
+      textInputType: TextInputType.visiblePassword,
+      prefix: Container(
+        margin: EdgeInsets.fromLTRB(16.h, 16.v, 8.h, 16.v),
+        child: AuthCustomImageViewWidget(
+          imagePath: 'assets/images/password_lock.png',
+          height: 20.adaptSize,
+          width: 20.adaptSize,
+        ),
+      ),
+      prefixConstraints: BoxConstraints(maxHeight: 52.v),
+      suffix: InkWell(
+        onTap: () {},
+        child: Container(
+          margin: EdgeInsets.fromLTRB(30.h, 14.v, 16.h, 14.v),
+          child: AuthCustomImageViewWidget(
+            imagePath: 'assets/images/password_show.png',
+            height: 18.adaptSize,
+            width: 18.adaptSize,
+          ),
+        ),
+      ),
+      suffixConstraints: BoxConstraints(
+        maxHeight: 52.v,
+      ),
+      validator: (value) {
+        if (value == null || (!isValidPassword(value, isRequired: true))) {
+          return "err_msg_please_enter_valid_password".tr;
+        }
+        return null;
+      },
+      //obscureText: _passwordTEController.text.toString(),
+      contentPadding: EdgeInsets.symmetric(vertical: 18.v),
+    );
+  }
+
+  Widget _buildRememberme() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 1.v),
+          child: CustomCheckboxButton(
+            text: "I agree to the terms & conditions".tr,
+            //value: controller.rememberme.value,
+            onChange: (value) {
+              //controller.rememberme.value = value;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRegister() {
+    return CustomButtonWidget(
+      text: "Sign Up".tr,
+      buttonStyle: ButtonStyle(
+        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+          (states) => states.contains(MaterialState.disabled)
+              ? Colors.green // Color for disabled state
+              : Colors.green.shade700, // Default color
+        ),
+        shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
+          (states) => RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+      ),
+    );
+  }
 }

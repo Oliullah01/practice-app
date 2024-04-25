@@ -1,5 +1,7 @@
 import 'package:custom_halal_app/core/utils/size_utils.dart';
 import 'package:custom_halal_app/core/utils/validation_function.dart';
+import 'package:custom_halal_app/screens/auth_screens/registration_screen.dart';
+import 'package:custom_halal_app/screens/home_screens/home_screen.dart';
 import 'package:custom_halal_app/theme/text_style_customize.dart';
 import 'package:custom_halal_app/theme/theme_helper.dart';
 import 'package:custom_halal_app/widgets/auth/auth_custom_icon_btn_widget.dart';
@@ -19,11 +21,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  Color _bgColor = const Color(0XFFE1EFE6);
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Color _bgColor = const Color(0XFFE1EFE6);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController _phoneTEController = TextEditingController();
-  TextEditingController _passwordTEController = TextEditingController();
+  final TextEditingController _phoneTEController = TextEditingController();
+  final TextEditingController _passwordTEController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,92 +42,103 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Form(
               key: _formKey,
               child: Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.h,
-                    vertical: 10.v,
-                  ),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 75.h),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 103.v),
-                                child: AuthCustomIconBtnWidget(
-                                  height: 36.adaptSize,
-                                  width: 36.adaptSize,
-                                  padding: EdgeInsets.all(9.h),
-                                  onTap: () {},
-                                  child: Image.asset(
-                                      'assets/images/img_arrow_left.png'),
-                                ),
+                width: double.maxFinite,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.h,
+                  vertical: 10.v,
+                ),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 75.h),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 103.v),
+                              child: AuthCustomIconBtnWidget(
+                                height: 36.adaptSize,
+                                width: 36.adaptSize,
+                                padding: EdgeInsets.all(9.h),
+                                onTap: () {},
+                                child: Image.asset(
+                                    'assets/images/img_arrow_left.png'),
                               ),
-                              Container(
-                                height: 110.v,
-                                width: 185.h,
-                                margin: EdgeInsets.only(left: 39.h, top: 29.v),
-                                child: Stack(
-                                  alignment: Alignment.bottomCenter,
-                                  children: [
-                                    AuthCustomImageViewWidget(
-                                      imagePath: 'assets/images/logo.png',
-                                      height: 98.adaptSize,
-                                      width: 98.adaptSize,
-                                      alignment: Alignment.topCenter,
+                            ),
+                            Container(
+                              height: 110.v,
+                              width: 185.h,
+                              margin: EdgeInsets.only(left: 39.h, top: 29.v),
+                              child: Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  AuthCustomImageViewWidget(
+                                    imagePath: 'assets/images/logo.png',
+                                    height: 98.adaptSize,
+                                    width: 98.adaptSize,
+                                    alignment: Alignment.topCenter,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                      'Welcome Back'.tr,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20),
                                     ),
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Text(
-                                        'Welcome Back'.tr,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 39.v,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Phone No:'.tr,
+                        style: TextStyleCustomize.titleSmallGray90006Medium,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 7.v,
+                    ),
+                    _buildPhone(),
+                    SizedBox(height: 16.v),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Password'.tr,
+                        style: TextStyleCustomize.titleSmallGray90006Medium,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 7.v,
+                    ),
+                    _buildPassword(),
+                    SizedBox(
+                      height: 16.v,
+                    ),
+                    _buildRememberme(),
+                    SizedBox(height: 22.v),
+                    _buildLogIn(),
+                    SizedBox(height: 24.v),
+                    InkResponse(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegistrationScreen(),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 39.v,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Phone No:'.tr,
-                          style: TextStyleCustomize.titleSmallGray90006Medium,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 7.v,
-                      ),
-                      _buildPhone(),
-                      SizedBox(height: 16.v),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Password'.tr,
-                          style: TextStyleCustomize.titleSmallGray90006Medium,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 7.v,
-                      ),
-                      _buildPassword(),
-                      SizedBox(height: 16.v,),
-                      _buildRememberme(),
-                      SizedBox(height: 22.v),
-                      _buildLogIn(),
-                      SizedBox(height: 24.v),
-                      RichText(
+                        );
+                      },
+                      child: RichText(
                         text: TextSpan(
                           children: [
                             TextSpan(
@@ -143,52 +156,54 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         textAlign: TextAlign.left,
                       ),
-                      SizedBox(height: 28.v),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: 6.v,
-                              bottom: 9.v,
-                            ),
-                            child: SizedBox(
-                              width: 73.h,
-                              child: Divider(
-                                color: theme.colorScheme.primary.withOpacity(0.3),
-                              ),
+                    ),
+                    SizedBox(height: 28.v),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 6.v,
+                            bottom: 9.v,
+                          ),
+                          child: SizedBox(
+                            width: 73.h,
+                            child: Divider(
+                              color: theme.colorScheme.primary.withOpacity(0.3),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 25.h),
-                            child: Text(
-                              "Or".tr,
-                              style: TextStyleCustomize.bodyMediumGray70002,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 25.h),
+                          child: Text(
+                            "Or".tr,
+                            style: TextStyleCustomize.bodyMediumGray70002,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 6.v,
+                            bottom: 9.v,
+                          ),
+                          child: SizedBox(
+                            width: 98.h,
+                            child: Divider(
+                              color: theme.colorScheme.primary.withOpacity(0.3),
+                              indent: 25.h,
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: 6.v,
-                              bottom: 9.v,
-                            ),
-                            child: SizedBox(
-                              width: 98.h,
-                              child: Divider(
-                                color: theme.colorScheme.primary.withOpacity(0.3),
-                                indent: 25.h,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 16.v),
-                      _buildContinueAsGuest(),
-                      SizedBox(height: 8.v),
-                      _buildContinueWithGoogle(),
-                      SizedBox(height: 5.v)
-                    ],
-                  )),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 16.v),
+                    _buildContinueAsGuest(),
+                    SizedBox(height: 8.v),
+                    _buildContinueWithGoogle(),
+                    SizedBox(height: 5.v)
+                  ],
+                ),
+              ),
             ),
           ),
         ),
@@ -284,14 +299,22 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildLogIn() {
     return CustomButtonWidget(
       text: "Log in".tr,
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+        );
+      },
       buttonStyle: ButtonStyle(
         backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-              (states) => states.contains(MaterialState.disabled)
+          (states) => states.contains(MaterialState.disabled)
               ? Colors.green // Color for disabled state
               : Colors.green.shade700, // Default color
         ),
         shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
-              (states) => RoundedRectangleBorder(
+          (states) => RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),

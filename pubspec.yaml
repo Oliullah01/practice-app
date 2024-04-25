@@ -17,6 +17,7 @@ dependencies:
   flutter_svg: ^2.0.9
   shared_preferences: ^2.2.2
   getwidget: ^4.0.0
+  pin_code_fields: ^8.0.1
 
 dev_dependencies:
   flutter_test:

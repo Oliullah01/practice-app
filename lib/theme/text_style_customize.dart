@@ -60,6 +60,11 @@ class TextStyleCustomize {
   static get titleSmallMedium_1 => theme.textTheme.titleSmall!.copyWith(
     fontWeight: FontWeight.w500,
   );
+  static get titleLargeBlackA600 => theme.textTheme.titleMedium!.copyWith(
+    color: Color(0XFF242424),
+    fontWeight: FontWeight.w600,
+    fontSize: 24.fSize,
+  );
 }
 
 extension on TextStyle {}
