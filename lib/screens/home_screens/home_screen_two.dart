@@ -175,8 +175,7 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xFF05792B),
-        fixedColor: Colors.green,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.red, // Set the unselected item color to red
         showUnselectedLabels: true,
         onTap: (int index) {
           if (index == 0) {
@@ -191,23 +190,36 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
         },
         items: [
           BottomNavigationBarItem(
-              icon: Image.asset('assets/images/home_icon.png', width: 24, height: 24),
-              label: 'Home'
+            icon: ColorFiltered(
+              colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
+              child: Image.asset('assets/images/home_icon.png', width: 24, height: 24),
+            ),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-              icon: Image.asset('assets/images/cart.png', width: 24, height: 24),
-              label: 'Cart'
+            icon: ColorFiltered(
+              colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
+              child: Image.asset('assets/images/cart.png', width: 24, height: 24),
+            ),
+            label: 'Cart',
           ),
           BottomNavigationBarItem(
-              icon: Image.asset('assets/images/play_button_icon.png', width: 24, height: 24),
-              label: 'User 1'
+            icon: ColorFiltered(
+              colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
+              child: Image.asset('assets/images/play_button_icon.png', width: 24, height: 24),
+            ),
+            label: 'User 1',
           ),
           BottomNavigationBarItem(
-              icon: Image.asset('assets/images/user.png', width: 24, height: 24),
-              label: 'User 2'
+            icon: ColorFiltered(
+              colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),
+              child: Image.asset('assets/images/user.png', width: 24, height: 24),
+            ),
+            label: 'User 2',
           ),
         ],
       ),
+
 
 
     );
