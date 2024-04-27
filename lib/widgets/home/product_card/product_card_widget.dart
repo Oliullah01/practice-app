@@ -41,6 +41,8 @@ class ProductCardWidget extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15.0),
                         topRight: Radius.circular(15.0),
+                        bottomRight: Radius.circular(10.0),
+                        bottomLeft: Radius.circular(10.0),
                       ),
                       color: Color(0XFFE1EFE6),
                     ),
