@@ -13,6 +13,7 @@ class HomeScreenTwo extends StatefulWidget {
 }
 
 class _HomeScreenTwoState extends State<HomeScreenTwo> {
+  int idx = 0;
   @override
   Widget build(BuildContext context) {
     final List<SalesData> chartData = [
@@ -31,7 +32,14 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
       'assets/images/category_two.png',
     ];
 
-    List<String> categoryNames = ['All', 'Rice', 'Salt', 'Biscuit', 'Milk', 'Coconut'];
+    List<String> categoryNames = [
+      'All',
+      'Rice',
+      'Salt',
+      'Biscuit',
+      'Milk',
+      'Coconut'
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -116,7 +124,10 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
                         scrollDirection: Axis.horizontal,
                         children: List.generate(
                           5,
-                          (index) => Image.asset('assets/images/slider1.png',width: 300,),
+                          (index) => Image.asset(
+                            'assets/images/slider1.png',
+                            width: 300,
+                          ),
                         ),
                       ),
                     ),
@@ -136,7 +147,10 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
                         scrollDirection: Axis.horizontal,
                         children: List.generate(
                           5,
-                              (index) => Image.asset(imagePaths[index],width: 100,),
+                          (index) => Image.asset(
+                            imagePaths[index],
+                            width: 100,
+                          ),
                         ),
                       ),
                     ),
@@ -170,21 +184,50 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
                         }).toList(),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 300,
-                        width: 200,
-                        child: ProductCardWidget(
-                          imagePath: 'assets/images/popular_item_chips.png', // Example image path
-                          productName: 'Product',
-                          productRating: 4.5,
-                          soldCount: 8456,
-                          productRate: 20.99,
-                          discount: '10% off',
+                    SizedBox(
+                      height: 500,
+                      child: GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        children: List.generate(
+                          8,
+                          (index) => ProductCardWidget(
+                            imagePath: 'assets/images/popular_item_chips.png',
+                            productName: 'Product',
+                            productRating: 4.5,
+                            soldCount: 8456,
+                            productRate: 20.99,
+                            discount: '10% off',
+                          ),
                         ),
                       ),
                     ),
+                    // Padding(
+                    //   padding: EdgeInsets.all(8.0),
+                    //   child: SizedBox(
+                    //     height: 300,
+                    //     width: 400,
+                    //     child: GridView.builder(
+                    //         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    //       crossAxisCount: 2,
+                    //       crossAxisSpacing: 16,
+                    //       mainAxisSpacing: 16,
+                    //       childAspectRatio: 0.7,
+                    //     ),
+                    //         itemCount: 10,
+                    //         itemBuilder: (BuildContext context,int index){
+                    //       return  ProductCardWidget(
+                    //                 imagePath: 'assets/images/popular_item_chips.png',
+                    //                 productName: 'Product',
+                    //                 productRating: 4.5,
+                    //                 soldCount: 8456,
+                    //                 productRate: 20.99,
+                    //                 discount: '10% off',
+                    //               );
+                    //     }),
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -193,64 +236,96 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF05792B),
-        unselectedItemColor: Colors.green,
-        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0XFF05792B),
+        currentIndex: idx,
+        iconSize: 28,
+        showUnselectedLabels: false,
         showSelectedLabels: true,
-        selectedLabelStyle: TextStyle(
-          color: Colors.green,
-          fontWeight: FontWeight.bold,
-          fontSize: 24,
-        ),
-        unselectedLabelStyle: TextStyle(
-          color: Colors.green,
-          fontSize: 12,
-        ),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
         onTap: (int index) {
-          if (index == 0) {
-            // Handle the first item tap
-          } else if (index == 1) {
-            // Handle the second item tap
-          } else if (index == 2) {
-            // Handle the third item tap
-          } else if (index == 3) {
-            // Handle the fourth item tap
-          }
+          setState(() {
+            idx = index;
+          });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
-              child: Image.asset('assets/images/home_icon.png', width: 24, height: 24),
-            ),
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
-              child: Image.asset('assets/images/cart.png', width: 24, height: 24),
-            ),
+            icon: Icon(Icons.shopping_cart_outlined),
+            activeIcon: Icon(Icons.shopping_cart),
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
-              child: Image.asset('assets/images/play_button_icon.png', width: 24, height: 24),
-            ),
+            icon: Icon(Icons.play_arrow_outlined),
+            activeIcon: Icon(Icons.play_arrow),
             label: 'Live',
           ),
           BottomNavigationBarItem(
-            icon: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
-              child: Image.asset('assets/images/user.png', width: 24, height: 24),
-            ),
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
+        // selectedLabelStyle: TextStyle(
+        //   color: Colors.green,
+        //   fontWeight: FontWeight.bold,
+        //   fontSize: 24,
+        // ),
+        // unselectedLabelStyle: TextStyle(
+        //   color: Colors.green,
+        //   fontSize: 12,
+        // ),
+        // onTap: (int index) {
+        //   if (index == 0) {
+        //     // Handle the first item tap
+        //   } else if (index == 1) {
+        //     // Handle the second item tap
+        //   } else if (index == 2) {
+        //     // Handle the third item tap
+        //   } else if (index == 3) {
+        //     // Handle the fourth item tap
+        //   }
+        // },
+        // items: [
+        //   BottomNavigationBarItem(
+        //     icon: ColorFiltered(
+        //       colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+        //       child: Image.asset('assets/images/home_icon.png',
+        //           width: 24, height: 24),
+        //     ),
+        //     label: 'Home',
+        //   ),
+        //   BottomNavigationBarItem(
+        //     icon: ColorFiltered(
+        //       colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+        //       child:
+        //           Image.asset('assets/images/cart.png', width: 24, height: 24),
+        //     ),
+        //     label: 'Cart',
+        //   ),
+        //   BottomNavigationBarItem(
+        //     icon: ColorFiltered(
+        //       colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+        //       child: Image.asset('assets/images/play_button_icon.png',
+        //           width: 24, height: 24),
+        //     ),
+        //     label: 'Live',
+        //   ),
+        //   BottomNavigationBarItem(
+        //     icon: ColorFiltered(
+        //       colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
+        //       child:
+        //           Image.asset('assets/images/user.png', width: 24, height: 24),
+        //     ),
+        //     label: 'Profile',
+        //   ),
+        // ],
       ),
-
-
-
     );
   }
 }
@@ -300,14 +375,6 @@ class SmallButton extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
 
 /*
 * SizedBox(
