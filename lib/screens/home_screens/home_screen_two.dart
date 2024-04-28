@@ -13,6 +13,8 @@ class HomeScreenTwo extends StatefulWidget {
 }
 
 class _HomeScreenTwoState extends State<HomeScreenTwo> {
+  int idx = 0;
+
   @override
   Widget build(BuildContext context) {
     final List<SalesData> chartData = [
@@ -170,6 +172,27 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
                         }).toList(),
                       ),
                     ),
+                    GridView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.7,
+                      ),
+                      children: List.generate(
+                        20,
+                        (index) => const ProductCardWidget(
+                          imagePath:
+                              'assets/images/popular_item_chips.png', // Example image path
+                          productName: 'Product',
+                          productRating: 4.5,
+                          soldCount: 8456,
+                          productRate: 20.99,
+                          discount: '10% off',
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -193,64 +216,37 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF05792B),
-        unselectedItemColor: Colors.green,
-        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0XFF05792B),
+        currentIndex: idx,
+        iconSize: 28,
+        showUnselectedLabels: false,
         showSelectedLabels: true,
-        selectedLabelStyle: TextStyle(
-          color: Colors.green,
-          fontWeight: FontWeight.bold,
-          fontSize: 24,
-        ),
-        unselectedLabelStyle: TextStyle(
-          color: Colors.green,
-          fontSize: 12,
-        ),
+        selectedItemColor: Colors.white,
         onTap: (int index) {
-          if (index == 0) {
-            // Handle the first item tap
-          } else if (index == 1) {
-            // Handle the second item tap
-          } else if (index == 2) {
-            // Handle the third item tap
-          } else if (index == 3) {
-            // Handle the fourth item tap
-          }
+          setState(() {
+            idx = index;
+          });
         },
         items: [
           BottomNavigationBarItem(
-            icon: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
-              child: Image.asset('assets/images/home_icon.png', width: 24, height: 24),
-            ),
+            icon: Image.asset('assets/images/home_icon.png'),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
-              child: Image.asset('assets/images/cart.png', width: 24, height: 24),
-            ),
+            icon: Image.asset('assets/images/cart.png'),
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
-              child: Image.asset('assets/images/play_button_icon.png', width: 24, height: 24),
-            ),
+            icon: Image.asset('assets/images/play_button_icon.png'),
             label: 'Live',
           ),
           BottomNavigationBarItem(
-            icon: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn),
-              child: Image.asset('assets/images/user.png', width: 24, height: 24),
-            ),
+            icon: Image.asset('assets/images/user.png'),
             label: 'Profile',
           ),
         ],
       ),
-
-
-
     );
   }
 }

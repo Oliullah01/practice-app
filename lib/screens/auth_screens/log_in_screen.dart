@@ -2,6 +2,7 @@ import 'package:custom_halal_app/core/utils/size_utils.dart';
 import 'package:custom_halal_app/core/utils/validation_function.dart';
 import 'package:custom_halal_app/screens/auth_screens/registration_screen.dart';
 import 'package:custom_halal_app/screens/home_screens/home_screen.dart';
+import 'package:custom_halal_app/screens/home_screens/home_screen_two.dart';
 import 'package:custom_halal_app/theme/text_style_customize.dart';
 import 'package:custom_halal_app/theme/theme_helper.dart';
 import 'package:custom_halal_app/widgets/auth/auth_custom_icon_btn_widget.dart';
@@ -303,7 +304,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => HomeScreenTwo(),
           ),
         );
       },
