@@ -223,26 +223,31 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
         showUnselectedLabels: false,
         showSelectedLabels: true,
         selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
         onTap: (int index) {
           setState(() {
             idx = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: Image.asset('assets/images/home_icon.png'),
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset('assets/images/cart.png'),
+            icon: Icon(Icons.shopping_cart_outlined),
+            activeIcon: Icon(Icons.shopping_cart),
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset('assets/images/play_button_icon.png'),
+            icon: Icon(Icons.play_arrow_outlined),
+            activeIcon: Icon(Icons.play_arrow),
             label: 'Live',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset('assets/images/user.png'),
+            icon: Icon(Icons.person_outline), 
+            activeIcon: Icon(Icons.person), 
             label: 'Profile',
           ),
         ],
