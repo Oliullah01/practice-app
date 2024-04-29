@@ -14,6 +14,7 @@ class HomeScreenTwo extends StatefulWidget {
 
 class _HomeScreenTwoState extends State<HomeScreenTwo> {
   int idx = 0;
+
   @override
   Widget build(BuildContext context) {
     final List<SalesData> chartData = [
@@ -231,6 +232,16 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
                   ],
                 ),
               ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.6, // Adjust as needed
+                  child: MyDraggableSheet(),
+                ),
+              ),
             ],
           ),
         ),
@@ -326,6 +337,9 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
         //   ),
         // ],
       ),
+      // bottomSheet: isBottomSheetOpen
+      //     ? CustomBottomSheetWidget()
+      //     : SizedBox.shrink(),
     );
   }
 }
@@ -335,7 +349,6 @@ class SalesData {
   final DateTime year;
   final double sales;
 }
-
 class SmallButton extends StatelessWidget {
   final String text;
   final bool isFirst;
@@ -375,6 +388,124 @@ class SmallButton extends StatelessWidget {
     );
   }
 }
+
+
+
+class MyDraggableSheet extends StatelessWidget {
+  const MyDraggableSheet({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.05, // Initially closed
+      minChildSize: 0.05,
+      maxChildSize: 0.95, // Fully opened
+      expand: false,
+      builder: (BuildContext context, ScrollController scrollController) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(22),
+              topRight: Radius.circular(22),
+            ),
+          ),
+          child: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              const TopButtonIndicator(),
+              const SliverToBoxAdapter(
+                child: BottomSheetContent(),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class TopButtonIndicator extends StatelessWidget {
+  const TopButtonIndicator({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        child: Center(
+          child: Container(
+            width: 100,
+            height: 5,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BottomSheetContent extends StatelessWidget {
+  const BottomSheetContent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: List.generate(
+        7,
+            (index) => BottomSheetDummyUI(),
+      ),
+    );
+  }
+}
+
+class BottomSheetDummyUI extends StatelessWidget {
+  const BottomSheetDummyUI({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                color: Colors.pink,
+                height: 100,
+                width: 100,
+              ),
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    color: Colors.orangeAccent,
+                    height: 20,
+                    width: 200,
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    color: Colors.green,
+                    height: 20,
+                    width: 180,
+                  ),
+                  const SizedBox(height: 50),
+                ],
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+}
+
+
 
 /*
 * SizedBox(
