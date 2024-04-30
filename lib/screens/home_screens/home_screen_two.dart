@@ -471,6 +471,7 @@ class BottomSheetDummyUI extends StatefulWidget {
 
 class _BottomSheetDummyUIState extends State<BottomSheetDummyUI> {
   var chosenValue;
+  var chosenRange;
 
   List<String> languageList = ["English", "Hindi" , "French" , "Spanish"];
   List<String> categoryNames = [
@@ -482,6 +483,8 @@ class _BottomSheetDummyUIState extends State<BottomSheetDummyUI> {
     'Coconut'
   ];
   List<String> numberRangeList = ["\$200.00 - \$400.00", "\$500.00 - \$600.00" , "\$700.00 - \$900.00"];
+  List<String> sortingList = ['All', 'Popular', 'Most Popular', 'Price High'];
+
 
   @override
   Widget build(BuildContext context) {
@@ -568,7 +571,7 @@ class _BottomSheetDummyUIState extends State<BottomSheetDummyUI> {
               iconSize: 50,
               iconEnabledColor: Colors.black,
               icon: const Icon(Icons.arrow_drop_down_sharp,size: 25,),
-              value: chosenValue ,
+              value: chosenRange ,
               style: TextStyle(fontSize: 16,color: Colors.green, fontWeight: FontWeight.normal),
               items: numberRangeList.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
@@ -578,7 +581,7 @@ class _BottomSheetDummyUIState extends State<BottomSheetDummyUI> {
               }).toList(),
               onChanged: (value) {
                 setState((){
-                  chosenValue = value;
+                  chosenRange = value;
                 });
               },
               alignment:AlignmentDirectional.centerStart ,
@@ -602,6 +605,30 @@ class _BottomSheetDummyUIState extends State<BottomSheetDummyUI> {
                   );
                 }).toList();
               },
+            ),
+          ),
+          SizedBox(height: 8,),
+          Align(alignment: Alignment.topLeft, child: Text('Sort By', style: TextStyle(color: Colors.black, fontSize: 18),),),
+          SizedBox(height: 8,),
+          SizedBox(
+            height: 40,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: sortingList.map((sortingName) {
+                return SmallButton(text: sortingName);
+              }).toList(),
+            ),
+          ),
+          SizedBox(height: 8,),
+          Align(alignment: Alignment.topLeft, child: Text('Rating', style: TextStyle(color: Colors.black, fontSize: 18),),),
+          SizedBox(height: 8,),
+          SizedBox(
+            height: 40,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: sortingList.map((sortingName) {
+                return SmallButton(text: sortingName);
+              }).toList(),
             ),
           ),
         ],
