@@ -238,7 +238,7 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
                 bottom: 0,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.6, // Adjust as needed
+                  height: MediaQuery.of(context).size.height * 0.6, 
                   child: MyDraggableSheet(),
                 ),
               ),
@@ -404,7 +404,7 @@ class MyDraggableSheet extends StatelessWidget {
       builder: (BuildContext context, ScrollController scrollController) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: Color(0XFFE1EFE6),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(22),
               topRight: Radius.circular(22),
@@ -415,7 +415,7 @@ class MyDraggableSheet extends StatelessWidget {
             slivers: [
               const TopButtonIndicator(),
               const SliverToBoxAdapter(
-                child: BottomSheetContent(),
+                child: BottomSheetDummyUI(),
               ),
             ],
           ),
@@ -462,8 +462,26 @@ class BottomSheetContent extends StatelessWidget {
   }
 }
 
-class BottomSheetDummyUI extends StatelessWidget {
+class BottomSheetDummyUI extends StatefulWidget {
   const BottomSheetDummyUI({Key? key}) : super(key: key);
+
+  @override
+  State<BottomSheetDummyUI> createState() => _BottomSheetDummyUIState();
+}
+
+class _BottomSheetDummyUIState extends State<BottomSheetDummyUI> {
+  var chosenValue;
+
+  List<String> languageList = ["English", "Hindi" , "French" , "Spanish"];
+  List<String> categoryNames = [
+    'All',
+    'Rice',
+    'Salt',
+    'Biscuit',
+    'Milk',
+    'Coconut'
+  ];
+  List<String> numberRangeList = ["\$200.00 - \$400.00", "\$500.00 - \$600.00" , "\$700.00 - \$900.00"];
 
   @override
   Widget build(BuildContext context) {
@@ -471,34 +489,121 @@ class BottomSheetDummyUI extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                color: Colors.pink,
-                height: 100,
-                width: 100,
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Colors.green.shade700,
+                borderRadius: BorderRadius.circular(20)
+            ),
+            child: DropdownButton<String>(
+              elevation: 1,
+              underline: SizedBox(), // to remove underline
+              isExpanded: true,
+              hint: const Text("Select"),
+              iconSize: 50,
+              iconEnabledColor: Colors.black,
+              icon: const Icon(Icons.arrow_drop_down_sharp,size: 25,),
+              value: chosenValue ,
+              style: TextStyle(fontSize: 16,color: Colors.green, fontWeight: FontWeight.normal),
+              items: languageList.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState((){
+                  chosenValue = value;
+                });
+              },
+              alignment:AlignmentDirectional.centerStart ,
+              iconDisabledColor:Colors.purple,
+              dropdownColor: Colors.lime,
+              isDense: true,
+              disabledHint: Container(
+                color: Colors.deepOrange,
               ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    color: Colors.orangeAccent,
-                    height: 20,
-                    width: 200,
-                  ),
-                  const SizedBox(height: 5),
-                  Container(
-                    color: Colors.green,
-                    height: 20,
-                    width: 180,
-                  ),
-                  const SizedBox(height: 50),
-                ],
-              )
-            ],
+              selectedItemBuilder: (BuildContext context) {
+                return languageList!.map<Widget>((String item) {
+                  //This widget is shown after you select an item
+                  return Container(
+                    alignment: Alignment.centerLeft,
+                    constraints: const BoxConstraints(minWidth: 100),
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.w600),
+                    ),
+                  );
+                }).toList();
+              },
+            ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 8,),
+          Align(alignment: Alignment.topLeft, child: Text('Category List', style: TextStyle(color: Colors.black, fontSize: 18),),),
+          SizedBox(height: 8,),
+          SizedBox(
+            height: 40,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: categoryNames.map((categoryName) {
+                return SmallButton(text: categoryName);
+              }).toList(),
+            ),
+          ),
+          SizedBox(height: 8,),
+          Align(alignment: Alignment.topLeft, child: Text('Price Range', style: TextStyle(color: Colors.black, fontSize: 18),),),
+          SizedBox(height: 8,),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20)
+            ),
+            child: DropdownButton<String>(
+              elevation: 1,
+              underline: SizedBox(), // to remove underline
+              isExpanded: true,
+              hint: const Text("Select"),
+              iconSize: 50,
+              iconEnabledColor: Colors.black,
+              icon: const Icon(Icons.arrow_drop_down_sharp,size: 25,),
+              value: chosenValue ,
+              style: TextStyle(fontSize: 16,color: Colors.green, fontWeight: FontWeight.normal),
+              items: numberRangeList.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState((){
+                  chosenValue = value;
+                });
+              },
+              alignment:AlignmentDirectional.centerStart ,
+              iconDisabledColor:Colors.purple,
+              dropdownColor: Colors.lime,
+              isDense: true,
+              disabledHint: Container(
+                color: Colors.deepOrange,
+              ),
+              selectedItemBuilder: (BuildContext context) {
+                return numberRangeList!.map<Widget>((String item) {
+                  //This widget is shown after you select an item
+                  return Container(
+                    alignment: Alignment.centerLeft,
+                    constraints: const BoxConstraints(minWidth: 100),
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.w600),
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ),
         ],
       ),
     );
