@@ -484,6 +484,7 @@ class _BottomSheetDummyUIState extends State<BottomSheetDummyUI> {
   ];
   List<String> numberRangeList = ["\$200.00 - \$400.00", "\$500.00 - \$600.00" , "\$700.00 - \$900.00"];
   List<String> sortingList = ['All', 'Popular', 'Most Popular', 'Price High'];
+  List numList = ['1','2','3','4','5'];
 
 
   @override
@@ -626,16 +627,63 @@ class _BottomSheetDummyUIState extends State<BottomSheetDummyUI> {
             height: 40,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: sortingList.map((sortingName) {
-                return SmallButton(text: sortingName);
+              children: numList.map((listNumber) {
+                return RatingButton(num: listNumber,);
               }).toList(),
             ),
+          ),
+          SizedBox(height: 40,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: (){}, child: Text('Reset'),),
+              SizedBox(width: 8,),
+              ElevatedButton(onPressed: (){}, child: Text('Apply'),),
+            ],
           ),
         ],
       ),
     );
   }
 }
+
+class RatingButton extends StatelessWidget {
+   RatingButton({Key? key, required this.num}) : super(key: key);
+
+  final String num;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0XFFE1EFE6),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.star,
+              size: 18,
+              color: Colors.black,
+            ),
+            SizedBox(
+              width: 6,
+            ),
+            Text(
+              num,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 
 
