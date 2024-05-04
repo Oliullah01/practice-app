@@ -35,7 +35,7 @@ class OnboardingStackWidget extends StatelessWidget {
   final String titleTwo;
   final String titleThree;
   final void Function()? onContinuePressed;
-  final Offset? arrowPosition; // New parameter for position of the arrow
+  final Offset? arrowPosition; 
   final Offset? skipPosition;
   final String buttonText;
 
