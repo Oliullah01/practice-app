@@ -1,4 +1,5 @@
 import 'package:custom_halal_app/core/utils/size_utils.dart';
+import 'package:custom_halal_app/screens/cart_order_address/address_detail_screen.dart';
 import 'package:custom_halal_app/widgets/auth/auth_custom_image_view_widget.dart';
 import 'package:custom_halal_app/widgets/home/product_card/product_card_widget.dart';
 import 'package:custom_halal_app/widgets/inputField/custom_text_form_field_widget.dart';
@@ -137,7 +138,12 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Category"),
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> AddressDetailsScreen(),),);
+                            },
+                              child: Text("Category"),
+                          ),
                           Text("See All"),
                         ],
                       ),
@@ -238,7 +244,7 @@ class _HomeScreenTwoState extends State<HomeScreenTwo> {
                 bottom: 0,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.6, 
+                  height: MediaQuery.of(context).size.height * 0.8,
                   child: MyDraggableSheet(),
                 ),
               ),
@@ -397,7 +403,7 @@ class MyDraggableSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: 0.05, // Initially closed
+      initialChildSize: 0.5, // Initially closed
       minChildSize: 0.05,
       maxChildSize: 0.95, // Fully opened
       expand: false,
@@ -415,7 +421,8 @@ class MyDraggableSheet extends StatelessWidget {
             slivers: [
               const TopButtonIndicator(),
               const SliverToBoxAdapter(
-                child: BottomSheetDummyUI(),
+                // child: BottomSheetDummyUI(),
+                child: BottomSheetContent(),
               ),
             ],
           ),
@@ -455,7 +462,7 @@ class BottomSheetContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: List.generate(
-        7,
+        1,
             (index) => BottomSheetDummyUI(),
       ),
     );
