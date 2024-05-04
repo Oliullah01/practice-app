@@ -10,6 +10,16 @@ class AddressBottomSheet extends StatefulWidget {
 }
 
 class _AddressBottomSheetState extends State<AddressBottomSheet> {
+  int stage = 0;
+
+  List<Widget> options = [];
+
+  @override
+  void initState() {
+    super.initState();
+    options = [region()];
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -111,7 +121,7 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
               height: 12,
             ),
             Expanded(
-              child: region(),
+              child: options[stage],
             ),
             SizedBox(
               height: 12,
