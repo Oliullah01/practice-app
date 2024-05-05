@@ -58,7 +58,7 @@ class _SeeShopLocationScreenState extends State<SeeShopLocationScreen> {
                               ),
                               SizedBox(width: 70.h),
                               Text(
-                                'Find Shop'.tr,
+                                'Shops Location'.tr,
                                 style: TextStyleCustomize.titleLargeBlackA600,
                               ),
                             ],
