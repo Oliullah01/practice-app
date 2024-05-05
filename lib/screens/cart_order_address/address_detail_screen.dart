@@ -1,11 +1,11 @@
 import 'package:custom_halal_app/core/utils/size_utils.dart';
+import 'package:custom_halal_app/screens/cart_order_address/find_shop_screen.dart';
 import 'package:custom_halal_app/theme/text_style_customize.dart';
 import 'package:custom_halal_app/widgets/auth/auth_custom_icon_btn_widget.dart';
 import 'package:custom_halal_app/widgets/cart/address_bottom_sheet_widget.dart';
 import 'package:custom_halal_app/widgets/inputField/custom_text_form_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 class AddressDetailsScreen extends StatefulWidget {
   AddressDetailsScreen({Key? key}) : super(key: key);
 
@@ -164,7 +164,9 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> FindShop(),),);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green.shade700,
                         padding:

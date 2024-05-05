@@ -3,7 +3,7 @@ import 'package:custom_halal_app/widgets/inputField/custom_text_form_field_widge
 import 'package:flutter/material.dart';
 
 class AddressBottomSheet extends StatefulWidget {
-  const AddressBottomSheet({super.key});
+  const AddressBottomSheet({Key? key}) : super(key: key);
 
   @override
   State<AddressBottomSheet> createState() => _AddressBottomSheetState();
@@ -11,20 +11,24 @@ class AddressBottomSheet extends StatefulWidget {
 
 class _AddressBottomSheetState extends State<AddressBottomSheet> {
   int stage = 0;
+  String selectedRegion = '';
+  String selectedCity = '';
+  String selectedArea = '';
+  bool isButtonEnabled = false;
 
   List<Widget> options = [];
 
   @override
   void initState() {
     super.initState();
-    options = [region(), city()];
+    options = [region(), city(), area()];
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.8,
+        height: MediaQuery.of(context).size.height * 0.9,
         child: Column(
           children: [
             Padding(
@@ -36,21 +40,26 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(color: Colors.black, width: 2),
                   ),
-                  child: Icon(Icons.close_rounded),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(Icons.close_rounded),
+                  ),
                 ),
               ),
             ),
             Center(
-                child: Text(
-                  'Select Your Area',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                )),
-            SizedBox(
-              height: 8,
+              child: Text(
+                'Select Your Area',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
+            SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Divider(
@@ -58,80 +67,142 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
                 color: Colors.green.shade100,
               ),
             ),
-            SizedBox(
-              height: 8,
-            ),
+            SizedBox(height: 8),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: CustomTextFormFieldWidget(
-                prefix: Row(
+                prefix: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(16.h, 16.v, 8.h, 16.v),
-                      child: SizedBox(
-                        width: 8,
-                        height: 8,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.green.shade700,
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(16.h, 16.v, 8.h, 16.v),
+                          child: SizedBox(
+                            width: 8,
+                            height: 8,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.green.shade700,
+                              ),
+                            ),
                           ),
                         ),
+                        SizedBox(width: 4.h),
+                        Text(
+                          'Region',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 200.h),
+                        Text(selectedRegion),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    if (selectedRegion.isNotEmpty)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    16.h, 16.v, 8.h, 16.v),
+                                child: SizedBox(
+                                  width: 8,
+                                  height: 8,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.green.shade700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 4.h),
+                              Text(
+                                'City',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(selectedCity),
+                        ],
                       ),
-                    ),
-                    SizedBox(width: 4.h),
-                    Text(
-                      'Region',
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
+                    if (selectedCity.isNotEmpty)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    16.h, 16.v, 8.h, 16.v),
+                                child: SizedBox(
+                                  width: 8,
+                                  height: 8,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.green.shade700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 4.h),
+                              Text(
+                                'Area',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          selectedArea.isEmpty
+                              ? Text('Selecting below...')
+                              : Text(selectedArea),
+                        ],
+                      ),
                   ],
-                ),
-                suffix: InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Text(
-                      'Selecting below',
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
                 ),
                 suffixConstraints: BoxConstraints(
                   maxHeight: 52.v,
                 ),
               ),
             ),
-            SizedBox(
-              height: 12,
-            ),
+            SizedBox(height: 12),
             Padding(
               padding: EdgeInsets.only(left: 12),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Select the Region',
+                  'Select the ${selectedRegion.isNotEmpty ? "City" : "Region"}',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            SizedBox(
-              height: 12,
-            ),
+            SizedBox(height: 12),
             Expanded(
               child: options[stage],
             ),
-            SizedBox(
-              height: 12,
-            ),
+            SizedBox(height: 12),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: isButtonEnabled ? () {
+
+                } : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green.shade700,
+                  backgroundColor: isButtonEnabled
+                      ? Colors.green.shade700
+                      : Colors.grey.shade400,
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -140,11 +211,12 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
                   minimumSize: Size(double.infinity, 50),
                 ),
                 child: Text(
-                  'Apply',
+                  'Confirm',
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -157,44 +229,35 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
   Widget region() {
     List<String> regions = [
       'Dhaka',
-      'Chattograme',
+      'Chattogram',
       'Khulna',
       'Rajshahi',
-      'Mymansigh',
+      'Mymensingh',
       'Rangpur',
       'Sylhet',
       'Barisal',
     ];
     return SingleChildScrollView(
       child: Container(
-        height: 340,
+        height: 250,
         width: 350,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
-          ),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: ListView.builder(
-          itemCount: regions.length * 2 - 1,
+          itemCount: regions.length,
           itemBuilder: (context, index) {
-            if (index.isOdd) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18),
-                child: Divider(
-                  thickness: 3,
-                  color: Colors.green.shade100,
-                ),
-              );
-            } else {
-              int titleIndex = index ~/ 2;
-              return ListTile(
-                title: Text(regions[titleIndex]),
-              );
-            }
+            return ListTile(
+              title: Text(regions[index]),
+              onTap: () {
+                setState(() {
+                  selectedRegion = regions[index];
+                  stage = 1; // Show city list
+                  isButtonEnabled = false; // Disable Apply button
+                });
+              },
+            );
           },
         ),
       ),
@@ -202,15 +265,15 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
   }
 
   Widget city() {
-    List<String> regions = [
+    List<String> cities = [
       'Dhaka-North',
       'Keranigonj',
       'Faridpur',
       'Gazipur',
-      'Gopalgonj',
-      'Kisorgonj',
+      'Gopalganj',
+      'Kishoreganj',
       'Dhaka-South',
-      'Manikgonj',
+      'Manikganj',
     ];
     return SingleChildScrollView(
       child: Container(
@@ -218,33 +281,67 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
         width: 350,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
-          ),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: ListView.builder(
-          itemCount: regions.length * 2 - 1,
+          itemCount: cities.length,
           itemBuilder: (context, index) {
-            if (index.isOdd) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18),
-                child: Divider(
-                  thickness: 3,
-                  color: Colors.green.shade100,
-                ),
-              );
-            } else {
-              int titleIndex = index ~/ 2;
-              return ListTile(
-                title: Text(regions[titleIndex]),
-              );
-            }
+            return ListTile(
+              title: Text(cities[index]),
+              onTap: () {
+                setState(() {
+                  selectedCity = cities[index];
+                  selectedArea = ''; // Reset selected area
+                  stage = 2; // Show area list
+                  isButtonEnabled = false; // Disable Apply button
+                });
+              },
+            );
           },
         ),
       ),
     );
   }
+
+  Widget area() {
+    List<String> areas = [
+      'Abdul Bani Road',
+      'Abdul Hadi Road',
+      'Abdul Dali Road',
+      'Abhidas Lane',
+      'Kochukhet',
+      'Mirpur',
+      'Dhaka-South',
+      'Manikganj',
+    ];
+    return SingleChildScrollView(
+      child: Container(
+        height: 340,
+        width: 350,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          children: areas.map((area) {
+            return ListTile(
+              title: Text(area),
+              onTap: () {
+                setState(() {
+                  selectedArea = area;
+                  isButtonEnabled = true; // Enable Apply button
+                  //stage = null;
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
 }
+
+/**
+ *
+ *
+ * */
